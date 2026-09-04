@@ -1,0 +1,277 @@
+/* ==========================================================================
+   tokens.css — Sunshine Electric Services Inc.
+   The ONLY file in this project allowed to contain a color literal.
+
+   Direction (per ART-DIRECTION §12): glass-depth dominant, editorial
+   secondary. Deep charcoal-teal anchors at hero / story / footer with airy
+   light sections between; copper is the single warm signal in a cool page.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------- */
+  /* 1. Brand primitives — fixed by the brief, never used directly     */
+  /*    outside this file.                                             */
+  /* ---------------------------------------------------------------- */
+  --brand-primary: #1e2a28; /* deep charcoal-teal */
+  --brand-secondary: #c17a3d; /* warm copper      */
+  --brand-accent: #e8a33d; /* warm amber-gold    */
+  --brand-dark: #141817; /* near-black         */
+  --brand-light: #f7f3ec; /* warm ivory         */
+
+  /* Derived neutrals. Every step is a real mix of the two brand
+     neutrals rather than a generic grey ramp, so the page stays tonally
+     one family from the ivory at the top to the near-black at the base. */
+  --teal-900: #0f1413;
+  --teal-850: #141817;
+  --teal-800: #18211f;
+  --teal-700: #1e2a28;
+  --teal-600: #26332f;
+  --teal-500: #33423e;
+  --teal-400: #4e5c59;
+  --teal-300: #7a8886;
+  --teal-200: #b9c4c1;
+  --teal-100: #dfe1d9;
+  --teal-050: #eeeae1;
+  --ivory: #f7f3ec;
+  --ivory-hi: #fdfaf4;
+
+  /* Copper ramp. --copper-ink is the only copper that passes 4.5:1 on
+     ivory (5.38:1); the brand copper itself sits at 3.1:1 and is
+     therefore restricted to large display type and non-text fills. */
+  --copper-ink: #8f5624;
+  --copper-600: #a4632c;
+  --copper-500: #c17a3d;
+  --copper-400: #d18f52;
+  --amber-500: #e8a33d;
+  --amber-300: #f0c184;
+
+  /* ---------------------------------------------------------------- */
+  /* 2. Semantic surfaces                                              */
+  /* ---------------------------------------------------------------- */
+  --surface: var(--ivory);
+  --surface-raised: var(--ivory-hi);
+  --surface-sunken: var(--teal-050);
+  --surface-band: var(--teal-600); /* mid-tone spine, trust badges     */
+  --surface-deep: var(--teal-700); /* hero + story anchors             */
+  --surface-deepest: var(--teal-850); /* final CTA + footer            */
+
+  /* ---------------------------------------------------------------- */
+  /* 3. Semantic ink                                                   */
+  /* ---------------------------------------------------------------- */
+  --ink: var(--teal-700); /* 13.4:1 on ivory   */
+  --ink-muted: var(--teal-400); /* 6.33:1 on ivory   */
+  --ink-faint: var(--teal-300);
+  --ink-inv: var(--ivory); /* 13.4:1 on teal-700 */
+  --ink-inv-muted: var(--teal-200); /* 8.28:1 on teal-700 */
+  --ink-inv-faint: var(--teal-300);
+  --ink-warm: var(--copper-ink); /* small copper text on light  */
+  --ink-warm-inv: var(--amber-500); /* small warm text on dark, 6.9:1 */
+
+  /* ---------------------------------------------------------------- */
+  /* 4. Lines, washes and glass                                        */
+  /* ---------------------------------------------------------------- */
+  --hairline: rgba(30, 42, 40, 0.14);
+  --hairline-soft: rgba(30, 42, 40, 0.08);
+  --hairline-inv: rgba(247, 243, 236, 0.16);
+  --hairline-inv-soft: rgba(247, 243, 236, 0.08);
+  --hairline-copper: rgba(193, 122, 61, 0.42);
+  --hairline-copper-soft: rgba(193, 122, 61, 0.2);
+
+  --wash-copper: rgba(193, 122, 61, 0.09);
+  --wash-copper-strong: rgba(193, 122, 61, 0.18);
+  --wash-amber: rgba(232, 163, 61, 0.14);
+  --wash-teal: rgba(30, 42, 40, 0.05);
+  --wash-teal-strong: rgba(30, 42, 40, 0.1);
+
+  /* Glass — the page's dominant material. Two recipes only: a light
+     pane for cards sitting on ivory, and a dark pane for the one
+     instrument (the photo-diagnosis widget) that travels the page. */
+  --glass-light: rgba(253, 250, 244, 0.66);
+  --glass-light-edge: rgba(255, 255, 255, 0.72);
+  --glass-dark: rgba(22, 30, 29, 0.82);
+  --glass-dark-edge: rgba(247, 243, 236, 0.14);
+  --glass-band: rgba(247, 243, 236, 0.07);
+  --glass-blur: 18px;
+  --glass-blur-nav: 22px;
+
+  --glass-light-strong: rgba(253, 250, 244, 0.93);
+
+  --scrim-deep: rgba(15, 20, 19, 0.82);
+  --scrim-mid: rgba(15, 20, 19, 0.58);
+  --scrim-soft: rgba(15, 20, 19, 0.28);
+
+  /* ---------------------------------------------------------------- */
+  /* 4b. Chrome fills, wells and inset highlights                      */
+  /*     Named by role so no component file ever needs a colour value. */
+  /* ---------------------------------------------------------------- */
+  --nav-fill: rgba(20, 24, 23, 0.9);
+  --nav-fill-solid: rgba(20, 24, 23, 0.95);
+  --menu-fill: rgba(24, 33, 31, 0.94);
+  --bar-fill: rgba(20, 24, 23, 0.86);
+  --fade-strip: linear-gradient(to right, rgba(20, 24, 23, 0), rgba(20, 24, 23, 0.95));
+
+  --field-fill: rgba(15, 20, 19, 0.42);
+  --field-fill-focus: rgba(15, 20, 19, 0.6);
+  --drop-fill: rgba(247, 243, 236, 0.035);
+  --drop-fill-hover: rgba(247, 243, 236, 0.055);
+  --success-fill: rgba(15, 20, 19, 0.4);
+  --icon-well: rgba(15, 20, 19, 0.28);
+  --icon-well-soft: rgba(15, 20, 19, 0.24);
+  --node-well: rgba(247, 243, 236, 0.06);
+
+  --inset-hi: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  --inset-hi-strong: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  --inset-hi-soft: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  --frame-hi: inset 0 0 0 1px rgba(247, 243, 236, 0.14);
+  --frame-vignette: inset 0 -80px 90px -50px rgba(15, 20, 19, 0.9);
+  --noise-dot: rgba(247, 243, 236, 0.055);
+
+  /* ---------------------------------------------------------------- */
+  /* 4c. Section veils — composite gradients, defined once here so the */
+  /*     photographic sections stay tonally identical to each other.   */
+  /* ---------------------------------------------------------------- */
+  --veil-hero: linear-gradient(
+      100deg,
+      #1e2a28 0%,
+      #1e2a28 34%,
+      rgba(30, 42, 40, 0.94) 48%,
+      rgba(30, 42, 40, 0.72) 68%,
+      rgba(20, 24, 23, 0.82) 100%
+    ),
+    radial-gradient(120% 88% at 78% 8%, rgba(193, 122, 61, 0.09) 0%, transparent 58%);
+
+  --veil-hero-stacked: linear-gradient(
+      168deg,
+      #1e2a28 0%,
+      rgba(30, 42, 40, 0.9) 42%,
+      rgba(20, 24, 23, 0.94) 100%
+    ),
+    radial-gradient(90% 60% at 84% 4%, rgba(193, 122, 61, 0.09) 0%, transparent 60%);
+
+  --veil-band: linear-gradient(
+      90deg,
+      #26332f 0%,
+      rgba(38, 51, 47, 0.86) 40%,
+      rgba(38, 51, 47, 0.9) 100%
+    ),
+    radial-gradient(80% 140% at 12% 0%, rgba(193, 122, 61, 0.09) 0%, transparent 62%);
+
+  --veil-coverage: linear-gradient(180deg, rgba(30, 42, 40, 0.72) 0%, rgba(20, 24, 23, 0.94) 78%),
+    radial-gradient(60% 50% at 50% 42%, rgba(193, 122, 61, 0.09) 0%, transparent 70%);
+
+  --veil-cta: linear-gradient(
+      90deg,
+      #141817 0%,
+      rgba(20, 24, 23, 0.92) 42%,
+      rgba(20, 24, 23, 0.55) 100%
+    ),
+    linear-gradient(0deg, rgba(15, 20, 19, 0.85) 0%, transparent 55%),
+    radial-gradient(50% 60% at 76% 32%, rgba(232, 163, 61, 0.14) 0%, transparent 68%);
+
+  --veil-story: radial-gradient(70% 50% at 84% 0%, rgba(193, 122, 61, 0.09) 0%, transparent 62%),
+    linear-gradient(180deg, transparent 0%, rgba(20, 24, 23, 0.5) 100%);
+
+  --mask-hero-grid: linear-gradient(105deg, rgba(0, 0, 0, 0.9) 8%, transparent 62%);
+
+  /* ---------------------------------------------------------------- */
+  /* 5. Type                                                           */
+  /* ---------------------------------------------------------------- */
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  /* Fraunces variable-axis presets. High opsz + a little SOFT keeps the
+     terminals from getting brittle at display sizes; WONK on only makes
+     the page's largest type distinctive without touching running text. */
+  --vf-display: 'opsz' 120, 'SOFT' 38, 'WONK' 1;
+  --vf-heading: 'opsz' 72, 'SOFT' 26, 'WONK' 0;
+  --vf-eyebrow: 'opsz' 14, 'SOFT' 0, 'WONK' 0;
+
+  --fs-3xs: 0.6875rem;
+  --fs-2xs: 0.75rem;
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-base: clamp(0.9375rem, 0.895rem + 0.17vw, 1.0625rem);
+  --fs-md: clamp(1rem, 0.94rem + 0.26vw, 1.1875rem);
+  --fs-lg: clamp(1.125rem, 1.02rem + 0.44vw, 1.4375rem);
+  --fs-xl: clamp(1.375rem, 1.14rem + 0.98vw, 2rem);
+  --fs-2xl: clamp(1.75rem, 1.33rem + 1.75vw, 2.75rem);
+  --fs-3xl: clamp(2rem, 1.15rem + 3.5vw, 3.9rem);
+  --fs-4xl: clamp(2.125rem, 1.35rem + 3.2vw, 3.5rem);
+
+  --lh-tight: 1.06;
+  --lh-snug: 1.16;
+  --lh-heading: 1.24;
+  --lh-body: 1.62;
+  --lh-loose: 1.72;
+
+  --tr-display: -0.028em;
+  --tr-heading: -0.018em;
+  --tr-body: 0;
+  --tr-label: 0.13em;
+  --tr-label-wide: 0.2em;
+
+  --fw-body: 400;
+  --fw-med: 500;
+  --fw-semi: 600;
+
+  /* ---------------------------------------------------------------- */
+  /* 6. Space, rhythm, radius                                          */
+  /* ---------------------------------------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 2.75rem;
+  --sp-8: 3.5rem;
+  --sp-9: 4.5rem;
+  --sp-10: 6rem;
+  --sp-11: 8rem;
+
+  --sec-y: clamp(3.25rem, 1.9rem + 5.2vw, 6.75rem);
+  --sec-y-tight: clamp(2.5rem, 1.6rem + 3.4vw, 4.5rem);
+  --gutter: clamp(1.125rem, 0.55rem + 2.4vw, 2.75rem);
+  --maxw: 78rem; /* 1248px */
+  --maxw-prose: 40rem;
+
+  --r-xs: 3px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  /* ---------------------------------------------------------------- */
+  /* 7. Elevation — teal-tinted, never neutral grey                    */
+  /* ---------------------------------------------------------------- */
+  --sh-1: 0 1px 2px rgba(15, 20, 19, 0.05), 0 2px 8px rgba(15, 20, 19, 0.04);
+  --sh-2: 0 2px 4px rgba(15, 20, 19, 0.05), 0 10px 24px rgba(15, 20, 19, 0.07);
+  --sh-3: 0 4px 10px rgba(15, 20, 19, 0.07), 0 22px 48px rgba(15, 20, 19, 0.1);
+  --sh-4: 0 8px 20px rgba(15, 20, 19, 0.12), 0 38px 80px rgba(15, 20, 19, 0.18);
+  --sh-inset-hair: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --sh-inset-hair-inv: inset 0 1px 0 rgba(247, 243, 236, 0.09);
+
+  /* ---------------------------------------------------------------- */
+  /* 8. Motion + chrome                                                */
+  /* ---------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --dur-fast: 180ms;
+  --dur-med: 280ms;
+  --dur-slow: 520ms;
+
+  --focus-ring: var(--copper-500);
+
+  --nav-h: 68px;
+  --subnav-h: 34px;
+  --rail-w: 25.5rem; /* photo-diagnosis widget column */
+  --rail-gap: clamp(1.5rem, 1rem + 2vw, 3.25rem);
+}
+
+@media (max-width: 900px) {
+  :root {
+    --nav-h: 58px;
+    --subnav-h: 0px;
+  }
+}

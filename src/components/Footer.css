@@ -1,0 +1,192 @@
+/* Footer — Mega Footer / Glass Divider Footer. The frosted divider strip is
+   what separates the FAQ from the footer, rather than a hard rule. */
+
+.ftr {
+  position: relative;
+  background: var(--surface-deepest);
+  color: var(--ink-inv);
+  padding-block: clamp(2.75rem, 1.6rem + 4vw, 5rem) clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  scroll-margin-top: calc(var(--nav-h) + 12px);
+}
+
+.ftr__divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5.5rem;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--glass-band) 0%, transparent 100%);
+  border-top: 1px solid var(--hairline-copper-soft);
+}
+
+.ftr__inner {
+  position: relative;
+}
+
+.ftr__cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 1.15fr);
+  gap: clamp(1.75rem, 0.8rem + 2.6vw, 3.5rem);
+}
+
+.ftr__col {
+  min-width: 0;
+}
+
+.ftr__mission {
+  margin: 1.15rem 0 0;
+  max-width: 38ch;
+  font-size: var(--fs-xs);
+  line-height: 1.75;
+  color: var(--ink-inv-muted);
+}
+
+.ftr__socials {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.35rem;
+}
+
+.ftr__social {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline-inv-soft);
+  background: var(--glass-band);
+  color: var(--ink-inv-muted);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.ftr__social:hover {
+  color: var(--amber-500);
+  border-color: var(--hairline-copper);
+  transform: translateY(-2px);
+}
+
+.ftr__colTitle {
+  margin: 0 0 1rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--amber-500);
+}
+
+.ftr__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.ftr__link {
+  position: relative;
+  display: inline-block;
+  font-size: var(--fs-xs);
+  color: var(--ink-inv-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.ftr__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--copper-400);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms var(--ease-quart);
+}
+
+.ftr__link:hover,
+.ftr__link:focus-visible {
+  color: var(--ivory);
+}
+
+.ftr__link:hover::after,
+.ftr__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.ftr__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-style: normal;
+}
+
+.ftr__biz {
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-heading);
+  color: var(--ivory);
+}
+
+.ftr__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  color: var(--ink-inv-muted);
+}
+
+.ftr__rowLink {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.ftr__rowLink:hover {
+  color: var(--amber-500);
+}
+
+.ftr__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  margin-top: clamp(2.25rem, 1.4rem + 2.4vw, 3.75rem);
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--hairline-inv-soft);
+}
+
+.ftr__copy,
+.ftr__demo {
+  margin: 0;
+  font-size: var(--fs-3xs);
+  color: var(--teal-300);
+}
+
+.ftr__demo {
+  color: var(--teal-400);
+}
+
+@media (max-width: 1080px) {
+  .ftr__cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ftr__col--brand {
+    grid-column: 1 / -1;
+  }
+
+  .ftr__mission {
+    max-width: 52ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .ftr__cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

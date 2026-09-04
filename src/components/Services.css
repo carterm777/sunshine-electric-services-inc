@@ -1,0 +1,221 @@
+/* Services — Featured Service Spotlight with Secondary List /
+   Glass Panel Service Card. The spotlight panel overlaps the photograph
+   (Overlapping or Bleeding Image) so the hierarchy is structural rather than
+   just a bigger card. */
+
+.svc {
+  background: var(--surface-sunken);
+}
+
+.svc__head {
+  margin-bottom: var(--sp-7);
+}
+
+/* Spotlight -------------------------------------------------------- */
+
+.svc__feature {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  margin-bottom: clamp(1.75rem, 1rem + 2.6vw, 3.25rem);
+}
+
+.svc__featureMedia {
+  aspect-ratio: 16 / 11;
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-3);
+}
+
+.svc__featureBody {
+  position: relative;
+  z-index: 1;
+  margin-left: clamp(-4.5rem, -3vw, -2rem);
+  padding: clamp(1.5rem, 1rem + 1.6vw, 2.5rem);
+  border-radius: var(--r-md);
+}
+
+.svc__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 1.1rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-copper-soft);
+  background: var(--wash-copper);
+  font-size: 0.625rem;
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-warm);
+}
+
+.svc__featureIcon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline);
+  background: var(--surface-raised);
+  color: var(--copper-ink);
+  box-shadow: var(--sh-1);
+}
+
+.svc__featureTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semi);
+  line-height: 1.14;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+}
+
+.svc__featureCopy {
+  margin: 0.85rem 0 0;
+  font-size: var(--fs-md);
+  line-height: var(--lh-loose);
+  color: var(--ink-muted);
+}
+
+.svc__featureCta {
+  margin-top: 1.35rem;
+}
+
+/* Secondary grid --------------------------------------------------- */
+
+/* Six columns rather than three, so the five secondary services fill two
+   complete rows (2+2+2 then 3+3) instead of leaving a gap where a sixth card
+   should be. */
+.svc__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.85rem, 0.4rem + 1.2vw, 1.25rem);
+}
+
+.svc__card {
+  grid-column: span 2;
+}
+
+.svc__card:nth-child(4),
+.svc__card:nth-child(5) {
+  grid-column: span 3;
+}
+
+.svc__card {
+  position: relative;
+  padding: 1.35rem 1.4rem 1.5rem;
+  border-radius: var(--r-md);
+  transition:
+    transform var(--dur-med) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out),
+    border-color var(--dur-med) var(--ease-out);
+}
+
+.svc__card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sh-3), var(--sh-inset-hair);
+  border-color: var(--hairline-copper-soft);
+}
+
+.svc__cardIcon {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  margin-bottom: 0.9rem;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--hairline-copper-soft);
+  background: var(--wash-copper);
+  color: var(--copper-ink);
+}
+
+.svc__cardTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semi);
+  line-height: 1.22;
+  letter-spacing: var(--tr-heading);
+  color: var(--ink);
+}
+
+.svc__cardCopy {
+  margin: 0.6rem 0 0;
+  font-size: var(--fs-sm);
+  line-height: 1.66;
+  color: var(--ink-muted);
+}
+
+.svc__cardMark {
+  position: absolute;
+  top: 1.35rem;
+  right: 1.4rem;
+  color: var(--ink-faint);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition:
+    opacity var(--dur-med) var(--ease-out),
+    transform var(--dur-med) var(--ease-out),
+    color var(--dur-med) var(--ease-out);
+}
+
+.svc__card:hover .svc__cardMark {
+  opacity: 1;
+  transform: none;
+  color: var(--copper-500);
+}
+
+@media (max-width: 1080px) {
+  .svc__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .svc__card {
+    grid-column: auto;
+  }
+
+  .svc__card:nth-child(4),
+  .svc__card:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .svc__card:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .svc__feature {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .svc__featureMedia {
+    aspect-ratio: 16 / 9;
+  }
+
+  .svc__featureBody {
+    margin-left: 0;
+    margin-top: -2.25rem;
+    margin-inline: clamp(0.5rem, 3vw, 2rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .svc__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .svc__card:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .svc__featureBody {
+    margin-inline: 0.5rem;
+  }
+}

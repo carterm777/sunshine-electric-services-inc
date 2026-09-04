@@ -1,0 +1,684 @@
+/* ==========================================================================
+   The signature element. A dark glass instrument that travels with the
+   visitor from the hero into the reviews section and then releases.
+
+   It is deliberately the only dark-glass object on the page: on the hero it
+   reads as a raised pane of smoked glass, and on the ivory reviews section it
+   becomes the one dark object on screen.
+   ========================================================================== */
+
+.pd {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  padding: 1.75rem 1.75rem 1.5rem;
+  color: var(--ink-inv);
+  isolation: isolate;
+}
+
+/* Cursor-Reactive Glow — one element on the page, dark surface only. */
+.pd__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: calc(var(--glow-on, 0) * 1);
+  transition: opacity 300ms var(--ease-out);
+  background: radial-gradient(
+    260px circle at var(--glow-x, 50%) var(--glow-y, 0%),
+    var(--wash-copper-strong),
+    transparent 70%
+  );
+}
+
+.pd .noise {
+  z-index: -1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Head                                                                */
+/* ------------------------------------------------------------------ */
+
+.pd__head {
+  position: relative;
+}
+
+.pd__eyebrow {
+  gap: 0.45rem;
+}
+
+.pd__title {
+  margin: 0.55rem 0 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: 1.5rem;
+  font-weight: var(--fw-semi);
+  line-height: 1.18;
+  letter-spacing: var(--tr-heading);
+  color: var(--ivory);
+}
+
+.pd__intro {
+  margin: 0.7rem 0 0;
+  font-size: var(--fs-xs);
+  line-height: 1.62;
+  color: var(--ink-inv-muted);
+}
+
+.pd__form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.15rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Drop zone                                                           */
+/* ------------------------------------------------------------------ */
+
+.pd__drop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  min-height: 7.5rem;
+  padding: 1.1rem;
+  border-radius: var(--r-md);
+  border: 1px dashed var(--hairline-inv);
+  background: var(--drop-fill);
+  text-align: center;
+  transition:
+    border-color var(--dur-med) var(--ease-out),
+    background-color var(--dur-med) var(--ease-out),
+    transform var(--dur-med) var(--ease-out);
+}
+
+.pd__drop:hover {
+  border-color: var(--hairline-copper);
+  background: var(--drop-fill-hover);
+}
+
+.pd__drop--over {
+  border-color: var(--amber-500);
+  border-style: solid;
+  background: var(--wash-amber);
+  transform: scale(1.012);
+}
+
+.pd__drop--error {
+  border-color: var(--copper-400);
+}
+
+.pd__drop--filled {
+  border-style: solid;
+  border-color: var(--hairline-inv);
+  padding: 0.6rem;
+  align-items: stretch;
+  text-align: left;
+}
+
+.pd__dropIcon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-copper-soft);
+  background: var(--wash-copper);
+  color: var(--amber-500);
+}
+
+.pd__dropLabel {
+  margin-top: 0.35rem;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  color: var(--ivory);
+  cursor: pointer;
+}
+
+.pd__dropHint {
+  margin: 0;
+  font-size: var(--fs-3xs);
+  line-height: 1.5;
+  color: var(--ink-inv-faint);
+}
+
+.pd__dropBrowse {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.05em;
+  color: var(--amber-500);
+}
+
+.pd__file {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pd__drop--filled .pd__file {
+  display: none;
+}
+
+/* Preview -------------------------------------------------------- */
+
+.pd__previewWrap {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.15rem 0.75rem;
+  align-items: center;
+}
+
+.pd__preview {
+  grid-row: 1 / span 2;
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline-inv);
+}
+
+.pd__previewMeta {
+  align-self: end;
+  min-width: 0;
+}
+
+.pd__previewName {
+  margin: 0;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  color: var(--ivory);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pd__previewSize {
+  margin: 0.1rem 0 0;
+  font-size: var(--fs-3xs);
+  color: var(--ink-inv-faint);
+}
+
+.pd__previewTools {
+  align-self: start;
+  display: flex;
+  gap: 0.9rem;
+  margin-top: 0.35rem;
+}
+
+.pd__tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0;
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-med);
+  color: var(--ink-inv-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.pd__tool:hover {
+  color: var(--amber-500);
+}
+
+/* ------------------------------------------------------------------ */
+/* Status line                                                         */
+/* ------------------------------------------------------------------ */
+
+.pd__status {
+  min-height: 1.15rem;
+  margin: 0.6rem 0 0;
+  font-size: var(--fs-3xs);
+  line-height: 1.45;
+}
+
+.pd__note {
+  color: var(--teal-300);
+}
+
+.pd__error {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.3rem;
+  color: var(--amber-300);
+}
+
+.pd__busy {
+  display: block;
+  color: var(--ink-inv-muted);
+}
+
+.pd__busyBar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-bottom: 0.4rem;
+  border-radius: var(--r-pill);
+  background: var(--hairline-inv);
+  overflow: hidden;
+}
+
+.pd__busyBar::after {
+  content: '';
+  display: block;
+  width: 38%;
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--amber-500);
+  animation: pd-scan 1.25s var(--ease-out) infinite;
+}
+
+@keyframes pd-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Fields                                                              */
+/* ------------------------------------------------------------------ */
+
+.pd__expand {
+  display: none;
+}
+
+.pd__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+.pd__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.pd__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  min-width: 0;
+}
+
+.pd__label {
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-inv-muted);
+}
+
+.pd__input {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline-inv);
+  background: var(--field-fill);
+  color: var(--ivory);
+  font-size: var(--fs-xs);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.pd__input::placeholder {
+  color: var(--teal-400);
+}
+
+.pd__input:focus {
+  outline: none;
+  border-color: var(--copper-400);
+  background: var(--field-fill-focus);
+  box-shadow: 0 0 0 3px var(--wash-copper);
+}
+
+.pd__input:focus-visible {
+  outline: none;
+}
+
+.pd__input--area {
+  resize: vertical;
+  min-height: 3.4rem;
+  line-height: 1.5;
+}
+
+.pd__hint {
+  font-size: var(--fs-3xs);
+  color: var(--teal-300);
+}
+
+.pd__fieldError {
+  font-size: var(--fs-3xs);
+  color: var(--amber-300);
+}
+
+/* ------------------------------------------------------------------ */
+/* Submit + reassurance                                                */
+/* ------------------------------------------------------------------ */
+
+.pd__submit {
+  margin-top: 1rem;
+  width: 100%;
+  padding-block: 0.85rem;
+}
+
+.pd__submit:disabled {
+  opacity: 0.75;
+  cursor: progress;
+  transform: none;
+}
+
+.pd__reassure {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin: 0.65rem 0 0;
+  font-size: var(--fs-3xs);
+  line-height: 1.5;
+  color: var(--ink-inv-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Success state                                                       */
+/* ------------------------------------------------------------------ */
+
+.pd__success {
+  margin-top: 1.25rem;
+  padding: 1.35rem 1.25rem 1.25rem;
+  border-radius: var(--r-md);
+  border: 1px solid var(--hairline-copper);
+  background: var(--success-fill);
+  animation: pd-success-in 620ms var(--ease-quart) both;
+}
+
+@keyframes pd-success-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pd__successMark {
+  display: block;
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+.pd__successSvg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pd__successRing {
+  stroke: var(--copper-500);
+  stroke-width: 1.4;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pd-draw 760ms var(--ease-quart) 80ms forwards;
+}
+
+.pd__successTick {
+  stroke: var(--amber-500);
+  stroke-width: 2.4;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pd-draw 480ms var(--ease-quart) 620ms forwards;
+}
+
+@keyframes pd-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.pd__successTitle {
+  margin: 0.85rem 0 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: 1.25rem;
+  font-weight: var(--fw-semi);
+  line-height: 1.24;
+  letter-spacing: var(--tr-heading);
+  color: var(--ivory);
+}
+
+.pd__successBody {
+  margin: 0.5rem 0 0;
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--ink-inv-muted);
+}
+
+.pd__successActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1.1rem;
+}
+
+.pd__successCall {
+  padding-block: 0.7rem;
+}
+
+.pd__again {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-med);
+  color: var(--ink-inv-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.pd__again:hover {
+  color: var(--amber-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pd__busyBar::after,
+  .pd__success,
+  .pd__successRing,
+  .pd__successTick {
+    animation: none !important;
+  }
+
+  .pd__successRing,
+  .pd__successTick {
+    stroke-dashoffset: 0;
+  }
+
+  .pd__glow {
+    opacity: 0;
+  }
+}
+
+/* ==================================================================== */
+/* Compact entry state.                                                 */
+/*                                                                      */
+/* It turns on wherever the widget has dropped out of its own column    */
+/* and has to share the fold with the hero copy — the whole stack has   */
+/* to clear 844px at 390 and 900px at 1024. In this state the widget    */
+/* presents as heading + drop affordance + CTA, and expands to the full */
+/* instrument on interaction (or automatically on a failed submit).     */
+/* ==================================================================== */
+
+@media (max-width: 1080px) {
+  .pd__intro {
+    display: none;
+  }
+
+  .pd--open .pd__intro {
+    display: block;
+    margin-top: 0.55rem;
+  }
+
+  .pd__status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+    min-height: 1rem;
+  }
+
+  .pd__expand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    align-self: flex-start;
+    margin-top: 0.35rem;
+    font-size: var(--fs-3xs);
+    font-weight: var(--fw-semi);
+    letter-spacing: 0.04em;
+    color: var(--amber-500);
+  }
+
+  .pd__expand:hover {
+    color: var(--amber-300);
+  }
+
+  .pd__fields {
+    display: none;
+  }
+
+  .pd--open .pd__fields {
+    display: flex;
+    animation: pd-fields-in 420ms var(--ease-quart) both;
+  }
+
+  .pd--open .pd__expand {
+    display: none;
+  }
+
+  @keyframes pd-fields-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* Tablet: the widget sits under the hero copy in one wide column, so the
+   drop zone gets shorter rather than wider and the frame tightens up. This is
+   what keeps the whole stack inside a 1024x900 fold. */
+@media (min-width: 901px) and (max-width: 1080px) {
+  .pd {
+    padding: 1.25rem 1.35rem 1.15rem;
+  }
+
+  .pd__title {
+    font-size: 1.375rem;
+  }
+
+  .pd__form {
+    margin-top: 0.85rem;
+  }
+
+  .pd__drop {
+    min-height: 5.25rem;
+    padding: 0.85rem;
+  }
+
+  .pd__submit {
+    margin-top: 0.7rem;
+    padding-block: 0.78rem;
+  }
+
+  .pd__reassure {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Tighter sizing for the phone breakpoint specifically. */
+@media (max-width: 900px) {
+  .pd {
+    padding: 1.05rem 1.05rem 1rem;
+    border-radius: var(--r-md);
+  }
+
+  .pd__title {
+    margin-top: 0.4rem;
+    font-size: 1.1875rem;
+  }
+
+  .pd__form {
+    margin-top: 0.75rem;
+  }
+
+  .pd__drop {
+    min-height: 4.4rem;
+    padding: 0.7rem;
+    gap: 0.15rem;
+  }
+
+  .pd__dropIcon {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+
+  .pd__dropIcon svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .pd__dropLabel {
+    margin-top: 0.2rem;
+    font-size: var(--fs-2xs);
+  }
+
+  .pd__dropHint {
+    font-size: 0.625rem;
+  }
+
+  .pd__dropBrowse {
+    display: none;
+  }
+
+  .pd__row {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .pd__submit {
+    margin-top: 0.7rem;
+    padding-block: 0.72rem;
+  }
+
+  .pd__reassure {
+    margin-top: 0.5rem;
+    font-size: 0.625rem;
+  }
+
+  .pd__success {
+    margin-top: 0.9rem;
+    padding: 1.1rem 1rem;
+  }
+}

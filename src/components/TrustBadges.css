@@ -1,0 +1,135 @@
+/* Trust Badges Banner — Certification Badge Wall / Glass Badge Cluster.
+   A mid-tone spine between two light sections: deep enough for the glass to
+   read as glass, shallower than the hero and story anchors so it stays a rule
+   rather than a fourth dark block. */
+
+.tb {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-band);
+  color: var(--ink-inv);
+  padding-block: clamp(1.75rem, 1.1rem + 2.4vw, 3rem);
+}
+
+.tb__bg {
+  position: absolute;
+  inset: 0;
+}
+
+.tb__tex {
+  width: 100%;
+  height: 100%;
+  opacity: 0.22;
+  object-position: center 38%;
+}
+
+.tb__veil {
+  position: absolute;
+  inset: 0;
+  background: var(--veil-band);
+}
+
+.tb__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 12.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.25rem, 0.5rem + 2.4vw, 3rem);
+}
+
+.tb__h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semi);
+  line-height: 1.22;
+  letter-spacing: var(--tr-heading);
+  color: var(--ivory);
+}
+
+.tb__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.6rem, 0.2rem + 1.2vw, 1rem);
+}
+
+/* Equal box, equal padding, one icon size and one stroke weight across all
+   four — the row has to read as one system, not four glyphs. */
+.tb__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4.25rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline-inv-soft);
+  background: var(--glass-band);
+  backdrop-filter: blur(12px) saturate(120%);
+  box-shadow: var(--sh-inset-hair-inv);
+  transition:
+    border-color var(--dur-med) var(--ease-out),
+    background-color var(--dur-med) var(--ease-out),
+    transform var(--dur-med) var(--ease-out);
+}
+
+.tb__item:hover {
+  border-color: var(--hairline-copper);
+  background: var(--wash-copper-strong);
+  transform: translateY(-3px);
+}
+
+.tb__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--hairline-copper-soft);
+  background: var(--icon-well);
+  color: var(--amber-500);
+}
+
+.tb__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  line-height: 1.32;
+  letter-spacing: 0.012em;
+  color: var(--ivory);
+}
+
+@media (max-width: 1080px) {
+  .tb__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.15rem;
+  }
+
+  .tb__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .tb__item {
+    min-height: 3.5rem;
+    padding: 0.7rem;
+    gap: 0.55rem;
+  }
+
+  .tb__icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .tb__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .tb__label {
+    font-size: 0.6875rem;
+  }
+}

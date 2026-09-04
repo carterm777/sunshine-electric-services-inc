@@ -1,0 +1,350 @@
+/* Navigation — Glass Frosted Nav Bar (visual style), with a mega-menu
+   dropdown for the two link sets that have real depth. No hamburger:
+   below 900px the nav becomes a horizontal strip that collapses to
+   click-to-call once the visitor starts scrolling. */
+
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  color: var(--ink-inv);
+}
+
+.hdr__sub {
+  border-bottom: 1px solid var(--hairline-inv-soft);
+  background: var(--teal-850);
+  transition: max-height var(--dur-slow) var(--ease-quart), opacity var(--dur-med) var(--ease-out);
+  max-height: 4rem;
+  overflow: hidden;
+}
+
+.hdr--stuck .hdr__sub {
+  max-height: 0;
+  opacity: 0;
+}
+
+.hdr__subInner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  height: var(--subnav-h);
+  font-size: var(--fs-2xs);
+  color: var(--ink-inv-muted);
+  letter-spacing: 0.01em;
+}
+
+.hdr__subItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.hdr__subItem:hover {
+  color: var(--amber-300);
+}
+
+.hdr__subItem--plain {
+  cursor: default;
+}
+
+.hdr__subItem--plain:hover {
+  color: var(--ink-inv-muted);
+}
+
+.hdr__dot {
+  width: 3px;
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: var(--teal-400);
+}
+
+.hdr__signal {
+  margin-left: auto;
+}
+
+.hdr__bar {
+  background: var(--nav-fill);
+  backdrop-filter: blur(var(--glass-blur-nav)) saturate(140%);
+  border-bottom: 1px solid var(--hairline-inv-soft);
+  transition: background-color var(--dur-slow) var(--ease-out),
+    border-color var(--dur-slow) var(--ease-out);
+}
+
+.hdr--stuck .hdr__bar {
+  background: var(--nav-fill-solid);
+  border-bottom-color: var(--hairline-copper-soft);
+}
+
+.hdr__barInner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  height: var(--nav-h);
+}
+
+.hdr__brand {
+  flex: none;
+}
+
+.hdr__cta {
+  flex: none;
+  margin-left: auto;
+  padding-block: 0.65rem;
+}
+
+.hdr__ctaShort {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- */
+/* Centred nav                                                       */
+/* ---------------------------------------------------------------- */
+
+.nav {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 0.1rem + 0.9vw, 1.15rem);
+}
+
+.nav__item {
+  position: relative;
+}
+
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.15rem;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-med);
+  letter-spacing: 0.035em;
+  color: var(--ink-inv-muted);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+/* Underline Sweep — draws in from the left rather than toggling. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0.15rem;
+  right: 0.15rem;
+  bottom: 0.28rem;
+  height: 1px;
+  background: var(--copper-400);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms var(--ease-quart);
+}
+
+.nav__link:hover,
+.nav__link:focus-visible {
+  color: var(--ivory);
+}
+
+.nav__link:hover::after,
+.nav__link:focus-visible::after,
+.nav__item--has-menu .nav__link[aria-expanded='true']::after {
+  transform: scaleX(1);
+}
+
+.nav__chev {
+  opacity: 0.6;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.nav__link[aria-expanded='true'] .nav__chev {
+  transform: rotate(180deg);
+}
+
+/* ---------------------------------------------------------------- */
+/* Dropdown panel                                                    */
+/* ---------------------------------------------------------------- */
+
+.menu {
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  left: 50%;
+  z-index: 5;
+  transform: translateX(-50%);
+}
+
+.menu--open {
+  animation: menu-in 260ms var(--ease-quart) both;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.menu__inner {
+  min-width: 15rem;
+  padding: var(--sp-5) var(--sp-5) var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--menu-fill);
+  backdrop-filter: blur(var(--glass-blur-nav)) saturate(140%);
+  border: 1px solid var(--hairline-inv);
+  box-shadow: var(--sh-4);
+}
+
+.menu__label {
+  margin: 0 0 var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--hairline-inv-soft);
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--amber-500);
+}
+
+.menu__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(11rem, 1fr));
+  gap: 0.1rem var(--sp-5);
+}
+
+.menu__link {
+  display: block;
+  padding: 0.36rem 0;
+  font-size: var(--fs-xs);
+  color: var(--ink-inv-muted);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out),
+    padding-left var(--dur-fast) var(--ease-out);
+}
+
+.menu__link:hover,
+.menu__link:focus-visible {
+  color: var(--ivory);
+  padding-left: 0.3rem;
+}
+
+/* Service Areas is a short list — one column reads better than three. */
+.nav__item--has-menu:last-of-type .menu__list {
+  grid-template-columns: repeat(2, minmax(9rem, 1fr));
+}
+
+/* ---------------------------------------------------------------- */
+/* Mobile strip                                                      */
+/* ---------------------------------------------------------------- */
+
+.railnav {
+  display: none;
+}
+
+@media (max-width: 1080px) {
+  .menu__list {
+    grid-template-columns: repeat(2, minmax(10rem, 1fr));
+  }
+
+  .menu {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .hdr__sub {
+    display: none;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .hdr__barInner {
+    gap: var(--sp-3);
+  }
+
+  .hdr__cta {
+    padding-inline: 1rem;
+  }
+
+  .hdr__ctaFull {
+    display: none;
+  }
+
+  .hdr__ctaShort {
+    display: inline;
+  }
+
+  .railnav {
+    display: block;
+    position: relative;
+    background: var(--nav-fill-solid);
+    backdrop-filter: blur(var(--glass-blur-nav));
+    border-bottom: 1px solid var(--hairline-inv-soft);
+    max-height: 3rem;
+    overflow: hidden;
+    transition: max-height 380ms var(--ease-quart), opacity var(--dur-med) var(--ease-out);
+  }
+
+  .hdr--stuck .railnav {
+    max-height: 0;
+    opacity: 0;
+    border-bottom-color: transparent;
+  }
+
+  /* Fade affordance so a cut-off last item reads as scrollable, not broken. */
+  .railnav::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2.5rem;
+    pointer-events: none;
+    background: var(--fade-strip);
+  }
+
+  .railnav__list {
+    display: flex;
+    gap: 1.15rem;
+    padding: 0 var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .railnav__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .railnav__link {
+    display: block;
+    padding: 0.62rem 0;
+    font-size: var(--fs-2xs);
+    font-weight: var(--fw-med);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-inv-muted);
+    white-space: nowrap;
+  }
+}

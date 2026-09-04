@@ -1,0 +1,275 @@
+/* Google Reviews — Testimonial Card Grid / Glass Panel Quote Card.
+   Sits in the left column of .lede while the photo-diagnosis widget is still
+   travelling down the right, so the grid is intentionally narrow and the
+   cards are sized to read at that width. */
+
+.rvw {
+  position: relative;
+  background: var(--surface);
+  padding-block: var(--sec-y-tight) var(--sec-y);
+  scroll-margin-top: calc(var(--nav-h) + 12px);
+}
+
+.rvw__inner {
+  position: relative;
+}
+
+.rvw__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: var(--sp-6);
+}
+
+.rvw__eyebrow {
+  gap: 0.6rem;
+}
+
+.rvw__g {
+  display: grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-copper);
+  background: var(--wash-copper);
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semi);
+  line-height: 1;
+  color: var(--ink-warm);
+}
+
+.rvw__h2 {
+  max-width: 20ch;
+}
+
+/* Aggregate callout ----------------------------------------------- */
+
+.rvw__aggregate {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.4rem 1.35rem;
+  padding: 1.35rem 1.5rem;
+  border-radius: var(--r-md);
+  margin-bottom: var(--sp-6);
+}
+
+.rvw__score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  padding-right: 1.35rem;
+  border-right: 1px solid var(--hairline);
+}
+
+.rvw__scoreNum {
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-display);
+  font-size: clamp(2.5rem, 1.8rem + 2.4vw, 3.5rem);
+  font-weight: var(--fw-semi);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.rvw__scoreOf {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-med);
+  color: var(--ink-faint);
+}
+
+.rvw__scoreMeta {
+  min-width: 0;
+}
+
+.rvw__scoreLine {
+  margin: 0.3rem 0 0;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.rvw__flag {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--hairline-soft);
+  font-size: var(--fs-3xs);
+  line-height: 1.5;
+  color: var(--ink-faint);
+}
+
+/* Stars ------------------------------------------------------------ */
+
+.stars {
+  display: inline-flex;
+  gap: 0.14rem;
+  color: var(--amber-500);
+}
+
+.stars__i {
+  animation: star-fill 420ms var(--ease-quart) both;
+  animation-delay: calc(var(--star-i) * 55ms + 120ms);
+}
+
+@keyframes star-fill {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Cards ------------------------------------------------------------ */
+
+.rvw__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.85rem, 0.4rem + 1.2vw, 1.25rem);
+}
+
+.rvw__card {
+  border-radius: var(--r-md);
+  transition:
+    transform var(--dur-med) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out),
+    border-color var(--dur-med) var(--ease-out);
+}
+
+.rvw__card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sh-3), var(--sh-inset-hair);
+  border-color: var(--hairline-copper-soft);
+}
+
+.rvw__card:last-child {
+  grid-column: 1 / -1;
+}
+
+.rvw__fig {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 1.25rem 1.35rem 1.15rem;
+}
+
+.rvw__cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.7rem;
+}
+
+.rvw__focus {
+  font-size: 0.625rem;
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.rvw__quote {
+  flex: 1;
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.62;
+  color: var(--ink);
+}
+
+.rvw__quote::before {
+  content: '“';
+}
+
+.rvw__quote::after {
+  content: '”';
+}
+
+.rvw__by {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.rvw__avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: var(--r-pill);
+  background: var(--teal-700);
+  color: var(--amber-500);
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semi);
+  line-height: 1;
+}
+
+.rvw__byText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.rvw__name {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  color: var(--ink);
+}
+
+.rvw__src {
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---------------------------------------------------------------- */
+
+/* Reserve the travelling widget's column. .shell is border-box, so this has
+   to replace the gutter as well as clear the rail — without the gutter term
+   the cards end up flush against the widget instead of a column apart. */
+@media (min-width: 1081px) {
+  .rvw__inner {
+    padding-right: calc(var(--gutter) + var(--rail-w) + var(--rail-gap));
+  }
+}
+
+@media (max-width: 620px) {
+  .rvw__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rvw__aggregate {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 1.15rem 1.15rem 1.1rem;
+  }
+
+  .rvw__score {
+    padding-right: 0;
+    border-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stars__i {
+    animation: none;
+  }
+}

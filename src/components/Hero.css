@@ -1,0 +1,369 @@
+/* ==========================================================================
+   Hero — Asymmetric Layered Hero / Layered Glass Panel.
+
+   .hero is deliberately position: static so that .hero__rail resolves its
+   absolute position against .lede (hero + reviews). Layering inside the hero
+   is done with grid-cell stacking rather than absolute positioning, which is
+   what makes that possible.
+   ========================================================================== */
+
+.hero {
+  --hero-pad-t: clamp(1.15rem, 0.4rem + 2.6vw, 3rem);
+  --hero-pad-b: clamp(1rem, 0.3rem + 2.4vw, 3rem);
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto;
+  background: var(--surface-deep);
+  color: var(--ink-inv);
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------- */
+/* Layered background: photo -> teal veil -> hairline plan grid       */
+/* ---------------------------------------------------------------- */
+
+.hero__bg {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1 / -1;
+  overflow: hidden;
+}
+
+.hero__photo {
+  position: absolute;
+  inset: -6% -4% -6% 26%;
+  will-change: transform;
+}
+
+.hero__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% 46%;
+}
+
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  background: var(--veil-hero);
+}
+
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(to right, var(--hairline-inv-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--hairline-inv-soft) 1px, transparent 1px);
+  background-size: 5.5rem 5.5rem;
+  mask-image: var(--mask-hero-grid);
+}
+
+/* ---------------------------------------------------------------- */
+/* Content                                                           */
+/* ---------------------------------------------------------------- */
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--rail-w);
+  gap: var(--rail-gap);
+  align-items: start;
+  padding-top: var(--hero-pad-t);
+  padding-bottom: var(--hero-pad-b);
+  min-height: min(41rem, calc(100vh - 9.5rem));
+}
+
+.hero__content {
+  min-width: 0;
+  max-width: 40rem;
+}
+
+.hero__stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__eyebrowWrap {
+  display: flex;
+  margin: 0;
+  /* Zero leading, so the eyebrow cap-height lands on the same line as the
+     top edge of the photo-diagnosis panel opposite it. */
+  line-height: 1;
+}
+
+.hero__h1 {
+  margin: clamp(0.7rem, 0.4rem + 1vw, 1.15rem) 0 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-display);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-semi);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  color: var(--ivory);
+  text-wrap: balance;
+}
+
+.hero__sub {
+  max-width: 33rem;
+  margin: clamp(0.7rem, 0.45rem + 0.9vw, 1.15rem) 0 0;
+  font-size: var(--fs-md);
+  line-height: 1.58;
+  color: var(--ink-inv-muted);
+}
+
+/* Value badges ---------------------------------------------------- */
+
+.hero__badges {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem clamp(0.55rem, 0.2rem + 1vw, 1.1rem);
+  max-width: 34rem;
+  margin: clamp(0.95rem, 0.6rem + 1.2vw, 1.6rem) 0 0;
+}
+
+.hero__badge {
+  display: flex;
+  align-items: center;
+  gap: 0.62rem;
+  padding: 0.5rem 0.7rem 0.5rem 0.5rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline-inv-soft);
+  background: var(--glass-band);
+  backdrop-filter: blur(8px);
+  transition:
+    border-color var(--dur-med) var(--ease-out),
+    background-color var(--dur-med) var(--ease-out);
+}
+
+.hero__badge:hover {
+  border-color: var(--hairline-copper);
+  background: var(--wash-copper);
+}
+
+.hero__badgeIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: var(--r-xs);
+  color: var(--amber-500);
+}
+
+.hero__badgeLabel {
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-med);
+  line-height: 1.28;
+  letter-spacing: 0.01em;
+  color: var(--ivory);
+}
+
+/* Actions --------------------------------------------------------- */
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: clamp(0.95rem, 0.6rem + 1.2vw, 1.6rem);
+}
+
+.hero__call {
+  padding-inline: 1.35rem;
+}
+
+.hero__secondary {
+  padding-inline: 1.15rem;
+}
+
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: clamp(1rem, 0.6rem + 1.3vw, 1.75rem);
+}
+
+.hero__signal {
+  color: var(--ink-inv-muted);
+}
+
+.hero__metaRule {
+  flex: none;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--hairline-inv);
+}
+
+.hero__metaText {
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-med);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--teal-300);
+}
+
+.hero__slot {
+  min-height: 1px;
+}
+
+/* ---------------------------------------------------------------- */
+/* The sticky rail                                                   */
+/* ---------------------------------------------------------------- */
+
+.hero__rail {
+  grid-column: 1;
+  grid-row: 2;
+  position: relative;
+  z-index: 2;
+  padding-inline: var(--gutter);
+  padding-bottom: var(--hero-pad-b);
+}
+
+@media (min-width: 1081px) {
+  .hero__rail {
+    position: absolute;
+    top: var(--hero-pad-t);
+    bottom: clamp(2rem, 4vw, 4.5rem);
+    right: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
+    width: var(--rail-w);
+    padding: 0;
+  }
+
+  .hero__railInner {
+    position: sticky;
+    top: calc(var(--nav-h) + 1.25rem);
+  }
+
+  /* The signature travel is motion, so it goes with the rest of the motion.
+     The rail itself stays where it is; the widget simply rides the page. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero__railInner {
+      position: static;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Below the rail breakpoint                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding-bottom: 0.75rem;
+  }
+
+  .hero__sub {
+    max-width: 40rem;
+  }
+
+  .hero__badges {
+    margin-top: 1rem;
+  }
+
+  .hero__actions {
+    margin-top: 1rem;
+  }
+
+  .hero__slot {
+    display: none;
+  }
+
+  .hero__content {
+    max-width: 46rem;
+  }
+
+  .hero__photo {
+    inset: -4% -4% -4% 0;
+    opacity: 0.55;
+  }
+
+  .hero__veil {
+    background: var(--veil-hero-stacked);
+  }
+
+  /* The stacked hero has to fit the widget under the copy inside one fold,
+     so the availability strip gives up its line to the widget. It still
+     appears in the header bar and in the final CTA. */
+  .hero__meta {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  /* The eyebrow runs 43 characters. With the rule beside it the line wraps and
+     the second line hangs under the rule, which reads as a stray indent — drop
+     the rule and tighten the setting so it sits flush left on one line. */
+  .hero__eyebrowWrap .eyebrow-rule {
+    display: none;
+  }
+
+  .hero__eyebrowWrap .eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.075em;
+  }
+
+  .hero__h1 {
+    line-height: 1.08;
+  }
+
+  .hero__sub {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .hero__badges {
+    gap: 0.45rem;
+    margin-top: 0.85rem;
+  }
+
+  .hero__badge {
+    gap: 0.45rem;
+    padding: 0.42rem 0.5rem 0.42rem 0.4rem;
+  }
+
+  .hero__badgeIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .hero__badgeIcon svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .hero__badgeLabel {
+    font-size: 0.6875rem;
+    line-height: 1.22;
+  }
+
+  .hero__actions {
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+  }
+
+  .hero__call,
+  .hero__secondary {
+    flex: 1 1 auto;
+    padding: 0.78rem 0.7rem;
+    font-size: var(--fs-2xs);
+  }
+
+  .hero__meta {
+    display: none;
+  }
+
+  .hero__rail {
+    padding-top: 0.85rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero__badges {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

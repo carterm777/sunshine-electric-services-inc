@@ -1,0 +1,80 @@
+/* Sticky mobile call bar — Glass Panel Sticky Bar. */
+
+.scb {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .scb {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 70;
+    display: block;
+    padding: 0.55rem var(--gutter) calc(0.55rem + env(safe-area-inset-bottom, 0px));
+    background: var(--bar-fill);
+    backdrop-filter: blur(var(--glass-blur-nav)) saturate(140%);
+    border-top: 1px solid var(--hairline-copper-soft);
+    transform: translateY(110%);
+    transition: transform 420ms var(--ease-quart);
+  }
+
+  .scb--in {
+    transform: none;
+  }
+
+  .scb__btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.62rem 0.9rem;
+    border-radius: var(--r-sm);
+    background: var(--copper-600);
+    color: var(--ivory-hi);
+    box-shadow: var(--sh-2), var(--inset-hi-soft);
+  }
+
+  .scb__btn:active {
+    background: var(--copper-500);
+  }
+
+  .scb__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: var(--r-pill);
+    background: var(--icon-well-soft);
+  }
+
+  .scb__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  .scb__label {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semi);
+    line-height: 1.15;
+  }
+
+  .scb__num {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    opacity: 0.88;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scb {
+    transition: none;
+  }
+}

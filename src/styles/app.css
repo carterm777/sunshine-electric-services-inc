@@ -1,0 +1,341 @@
+/* ==========================================================================
+   app.css — page scaffolding and the patterns shared across sections.
+   Section-specific rules live in components/<Name>.css.
+   Every selector here is a single class. No color literals; tokens only.
+   ========================================================================== */
+
+body {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--tr-body);
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout primitives                                                   */
+/* ------------------------------------------------------------------ */
+
+.shell {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Containing block for the photo-diagnosis widget's sticky rail. The widget
+   travels the hero and the reviews section and releases at this element's
+   bottom edge, so it cannot reach the trust-badge banner below. */
+.lede-wrap {
+  position: relative;
+}
+
+.section {
+  position: relative;
+  padding-block: var(--sec-y);
+  scroll-margin-top: calc(var(--nav-h) + 12px);
+}
+
+.section-tight {
+  padding-block: var(--sec-y-tight);
+}
+
+.section-dark {
+  background: var(--surface-deep);
+  color: var(--ink-inv);
+}
+
+.section-sunken {
+  background: var(--surface-sunken);
+}
+
+/* ------------------------------------------------------------------ */
+/* Type patterns                                                       */
+/* ------------------------------------------------------------------ */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: 0;
+  line-height: 1.25;
+  font-family: var(--font-body);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-warm);
+}
+
+.eyebrow-inv {
+  color: var(--ink-warm-inv);
+}
+
+.eyebrow-rule {
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semi);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tr-heading);
+  text-wrap: balance;
+}
+
+.h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semi);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tr-heading);
+}
+
+.lede {
+  margin: 0;
+  font-size: var(--fs-md);
+  line-height: var(--lh-loose);
+  color: var(--ink-muted);
+}
+
+.lede-inv {
+  color: var(--ink-inv-muted);
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  max-width: 46rem;
+  margin-bottom: var(--sp-8);
+}
+
+/* ------------------------------------------------------------------ */
+/* Buttons                                                             */
+/* ------------------------------------------------------------------ */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  padding: 0.9375rem 1.5rem;
+  border-radius: var(--r-sm);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.015em;
+  line-height: 1.1;
+  text-align: center;
+  transition:
+    transform var(--dur-med) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out),
+    background-color var(--dur-med) var(--ease-out),
+    border-color var(--dur-med) var(--ease-out),
+    color var(--dur-med) var(--ease-out);
+}
+
+.btn-primary {
+  background: var(--copper-600);
+  color: var(--ivory-hi);
+  box-shadow:
+    var(--sh-2),
+    var(--inset-hi);
+}
+
+.btn-primary:hover {
+  background: var(--copper-500);
+  transform: translateY(-2px);
+  box-shadow:
+    var(--sh-3),
+    var(--inset-hi-strong);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  border: 1px solid var(--hairline);
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-ghost:hover {
+  border-color: var(--copper-500);
+  color: var(--ink-warm);
+  transform: translateY(-2px);
+}
+
+.btn-ghost-inv {
+  border: 1px solid var(--hairline-inv);
+  background: var(--glass-band);
+  color: var(--ink-inv);
+  backdrop-filter: blur(6px);
+}
+
+.btn-ghost-inv:hover {
+  border-color: var(--copper-400);
+  background: var(--wash-copper-strong);
+  transform: translateY(-2px);
+}
+
+.btn-icon {
+  flex: none;
+  width: 1.0625rem;
+  height: 1.0625rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* The 24/7 signal — the page's one persistent "urgent" element,        */
+/* rendered as steadiness rather than a red banner.                     */
+/* ------------------------------------------------------------------ */
+
+.pulse {
+  position: relative;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--amber-500);
+  box-shadow: 0 0 0 0 var(--wash-amber);
+}
+
+.pulse::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-copper);
+  opacity: 0;
+  animation: pulse-ring 4.5s var(--ease-quart) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.55);
+  }
+  60%,
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse::after {
+    animation: none;
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.signal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-inv-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Glass — the page's dominant material, two recipes only               */
+/* ------------------------------------------------------------------ */
+
+.glass {
+  background: var(--glass-light);
+  backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+  border: 1px solid var(--glass-light-edge);
+  box-shadow: var(--sh-2), var(--sh-inset-hair);
+}
+
+.glass-dark {
+  background: var(--glass-dark);
+  backdrop-filter: blur(var(--glass-blur)) saturate(115%);
+  border: 1px solid var(--glass-dark-edge);
+  box-shadow: var(--sh-4), var(--sh-inset-hair-inv);
+}
+
+/* ------------------------------------------------------------------ */
+/* Media                                                               */
+/* ------------------------------------------------------------------ */
+
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--teal-600);
+}
+
+.media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A single, consistent photographic grade across the whole page: a touch
+   cooler and slightly lifted in the blacks so the photography sits in the
+   same tonal family as the teal surfaces. */
+.grade {
+  filter: saturate(0.82) contrast(1.04) brightness(0.98);
+}
+
+.grade-deep {
+  filter: saturate(0.62) contrast(1.06) brightness(0.72);
+}
+
+/* ------------------------------------------------------------------ */
+/* Utility                                                             */
+/* ------------------------------------------------------------------ */
+
+.hairline-top {
+  border-top: 1px solid var(--hairline);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--noise-dot) 1px,
+    transparent 0
+  );
+  background-size: 4px 4px;
+}
+
+.skip-link {
+  background: var(--surface-deep);
+  color: var(--ink-inv);
+  border-radius: 0 0 var(--r-sm) 0;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+}
+
+/* Clearance for the fixed mobile call bar. */
+@media (max-width: 900px) {
+  body {
+    padding-bottom: 4.5rem;
+  }
+}

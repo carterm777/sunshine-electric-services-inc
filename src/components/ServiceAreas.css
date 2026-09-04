@@ -1,0 +1,339 @@
+/* Coverage — Interactive Location Finder / Glass Overlay Address Card on a
+   hand-built schematic. No third-party map: the diagram is drawn here, is
+   captioned as a diagram, and encodes run frequency rather than geography. */
+
+.cov {
+  background: var(--surface);
+}
+
+.cov__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: start;
+  gap: clamp(1.75rem, 0.8rem + 3.4vw, 4rem);
+}
+
+.cov__copy {
+  min-width: 0;
+}
+
+.cov__h2 {
+  margin-top: 0.75rem;
+}
+
+.cov__lead {
+  margin-top: 1rem;
+  max-width: 34ch;
+}
+
+/* Zone index -------------------------------------------------------- */
+
+.cov__zones {
+  margin-top: 1.6rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.cov__zone {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.cov__zoneMark {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.4rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--copper-500);
+  background: var(--wash-copper-strong);
+}
+
+.cov__zoneText {
+  min-width: 0;
+}
+
+.cov__zoneName {
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-heading);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-heading);
+  color: var(--ink);
+}
+
+.cov__zoneNote {
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+/* Finder ------------------------------------------------------------ */
+
+.cov__finder {
+  margin-top: 1.75rem;
+}
+
+.cov__finderLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.cov__finderField {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.15rem 0.9rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline);
+  background: var(--surface-raised);
+  box-shadow: var(--sh-1);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.cov__finderField:focus-within {
+  border-color: var(--copper-500);
+  box-shadow: 0 0 0 3px var(--wash-copper);
+}
+
+.cov__finderIcon {
+  flex: none;
+  color: var(--ink-faint);
+}
+
+.cov__finderInput {
+  flex: 1;
+  min-width: 0;
+  padding: 0.7rem 0;
+  border: 0;
+  background: none;
+  font-size: var(--fs-sm);
+  color: var(--ink);
+}
+
+.cov__finderInput:focus {
+  outline: none;
+}
+
+.cov__finderInput:focus-visible {
+  outline: none;
+}
+
+.cov__finderInput::placeholder {
+  color: var(--ink-faint);
+}
+
+.cov__finderOut {
+  margin: 0.6rem 0 0;
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-faint);
+  transition: color var(--dur-med) var(--ease-out);
+}
+
+.cov__finderOut--in {
+  color: var(--ink-warm);
+  font-weight: var(--fw-med);
+}
+
+.cov__finderOut--edge {
+  color: var(--ink-muted);
+  font-weight: var(--fw-med);
+}
+
+.cov__finderOut--none {
+  color: var(--ink-muted);
+}
+
+.cov__closing {
+  margin: 1.5rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+  font-size: var(--fs-md);
+  line-height: var(--lh-loose);
+  color: var(--ink);
+}
+
+/* Panel ------------------------------------------------------------- */
+
+.cov__panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: var(--surface-deep);
+  box-shadow: var(--sh-4);
+  padding: clamp(1rem, 0.4rem + 1.8vw, 1.75rem);
+}
+
+.cov__panelBg {
+  position: absolute;
+  inset: 0;
+}
+
+.cov__panelImg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.22;
+  object-position: center 62%;
+}
+
+.cov__panelVeil {
+  position: absolute;
+  inset: 0;
+  background: var(--veil-coverage);
+}
+
+.cov__diagram {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.cov__rings :where(circle) {
+  fill: none;
+  stroke: var(--hairline-inv);
+  stroke-width: 1.25;
+}
+
+.cov__ringEdge {
+  stroke-dasharray: 3 7;
+  opacity: 0.7;
+}
+
+.cov__runs :where(line) {
+  stroke: var(--hairline-copper);
+  stroke-width: 1.1;
+}
+
+/* The run lines carry .draw from base.css, but .is-in lands on the <svg>,
+   so drive the stroke reveal from the parent rather than from .draw.is-in. */
+.cov__diagram.is-in .draw {
+  stroke-dashoffset: 0;
+}
+
+.cov__nodeHalo {
+  fill: var(--wash-copper);
+  stroke: var(--hairline-copper-soft);
+  stroke-width: 1;
+}
+
+.cov__nodeDot {
+  fill: var(--copper-400);
+}
+
+.cov__node--core .cov__nodeHalo {
+  fill: var(--wash-amber);
+  stroke: var(--hairline-copper);
+}
+
+.cov__node--core .cov__nodeDot {
+  fill: var(--amber-500);
+}
+
+.cov__node--edge .cov__nodeDot {
+  fill: var(--teal-200);
+}
+
+.cov__node--edge .cov__nodeHalo {
+  fill: var(--node-well);
+}
+
+.cov__nodeLabel {
+  fill: var(--ink-inv-muted);
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.cov__node--core .cov__nodeLabel {
+  fill: var(--ivory);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.cov__caption {
+  position: relative;
+  margin: 0.9rem 0 0;
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  text-align: center;
+}
+
+.cov__card {
+  position: relative;
+  background: var(--glass-light-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--r-md);
+  font-style: normal;
+}
+
+.cov__cardLabel {
+  font-size: 0.625rem;
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--ink-warm);
+}
+
+.cov__cardAddr {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.cov__cardPhone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  color: var(--ink-warm);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.cov__cardPhone:hover {
+  color: var(--copper-500);
+}
+
+@media (max-width: 980px) {
+  .cov__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cov__lead {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .cov__nodeLabel {
+    font-size: 13px;
+  }
+
+  .cov__node--core .cov__nodeLabel {
+    font-size: 17px;
+  }
+}

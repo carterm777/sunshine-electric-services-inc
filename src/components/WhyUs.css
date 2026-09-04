@@ -1,0 +1,139 @@
+/* Why Us — Alternating Benefit List / Soft Card Elevation.
+   Every reason carries its own photograph, which is what keeps the list off
+   the three-column icon-card default. */
+
+.why {
+  background: var(--surface);
+}
+
+.why__head {
+  margin-bottom: var(--sp-8);
+}
+
+.why__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.25rem, 1.2rem + 3.6vw, 4.5rem);
+}
+
+.why__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.88fr);
+  align-items: center;
+  gap: clamp(1.5rem, 0.8rem + 3vw, 4rem);
+}
+
+/* Alternating side. The track sizes mirror as well as the order, so the
+   photograph is the same width on every row — an alternation where the image
+   silently changes width row to row reads as a mistake, not a rhythm. */
+.why__row:nth-child(even) {
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1fr);
+}
+
+.why__row:nth-child(even) .why__media {
+  order: 2;
+}
+
+.why__row:nth-child(even) .why__body {
+  order: 1;
+}
+
+.why__media {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-3);
+}
+
+.why__media img {
+  transition: transform 900ms var(--ease-quart);
+}
+
+.why__row:hover .why__media img {
+  transform: scale(1.028);
+}
+
+/* A copper hairline tucked under the top-left corner of the plate — the
+   section's only ornament, and it lines up with the icon chip opposite. */
+.why__mediaEdge {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-md);
+  border: 1px solid var(--hairline-soft);
+  box-shadow: var(--frame-hi);
+  pointer-events: none;
+}
+
+.why__body {
+  min-width: 0;
+  padding-block: clamp(0.25rem, 1vw, 1rem);
+}
+
+.why__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1.05rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline-copper-soft);
+  background: var(--wash-copper);
+  color: var(--copper-ink);
+  box-shadow: var(--sh-1);
+}
+
+.why__title {
+  max-width: 22ch;
+}
+
+.why__rule {
+  display: block;
+  width: 2.75rem;
+  height: 2px;
+  margin: 0.95rem 0 0.9rem;
+  border-radius: var(--r-pill);
+  background: var(--copper-500);
+}
+
+.why__copy {
+  max-width: 36ch;
+  margin: 0;
+  font-size: var(--fs-md);
+  line-height: var(--lh-loose);
+  color: var(--ink-muted);
+}
+
+@media (max-width: 860px) {
+  .why__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.15rem;
+  }
+
+  .why__row:nth-child(even) .why__media {
+    order: 0;
+  }
+
+  .why__row:nth-child(even) .why__body {
+    order: 0;
+  }
+
+  .why__media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .why__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .why__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .why__copy,
+  .why__title {
+    max-width: none;
+  }
+}

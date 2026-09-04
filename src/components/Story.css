@@ -1,0 +1,159 @@
+/* Our Story — Split Story with Sticky Photo or Quote / Editorial Pull-Quote
+   Typography. The assigned visual style was Glass Timeline Markers, but the
+   story copy carries no dates or ordered milestones, so a timeline would have
+   to be invented — the pull-quote treatment is the logged substitution, with
+   the section's glass kept in the caption plate on the photograph. */
+
+.story {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-deep);
+  color: var(--ink-inv);
+  padding-block: var(--sec-y);
+  scroll-margin-top: calc(var(--nav-h) + 12px);
+}
+
+.story__wash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--veil-story);
+}
+
+.story__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 0.8rem + 3.6vw, 4.5rem);
+  align-items: start;
+}
+
+/* Sticky aside ------------------------------------------------------ */
+
+.story__sticky {
+  position: sticky;
+  top: calc(var(--nav-h) + 1.75rem);
+}
+
+.story__media {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-4);
+}
+
+.story__media img {
+  object-position: center 42%;
+}
+
+.story__mediaEdge {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-md);
+  border: 1px solid var(--hairline-inv);
+  box-shadow: var(--frame-vignette);
+  pointer-events: none;
+}
+
+.story__quote {
+  position: relative;
+  margin: -2.75rem 0 0 clamp(0.75rem, 2vw, 2rem);
+  padding: 1.5rem 1.5rem 1.35rem;
+  border-radius: var(--r-md);
+  background: var(--glass-dark);
+  backdrop-filter: blur(var(--glass-blur)) saturate(115%);
+  border: 1px solid var(--hairline-copper);
+  box-shadow: var(--sh-4);
+}
+
+.story__quoteMark {
+  position: absolute;
+  top: 0.1rem;
+  left: 1.1rem;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-display);
+  font-size: 3.75rem;
+  line-height: 1;
+  color: var(--copper-500);
+  opacity: 0.55;
+}
+
+.story__quoteText {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'SOFT' 60, 'WONK' 1;
+  font-size: clamp(1.375rem, 1rem + 1.4vw, 2.0625rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.26;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+}
+
+/* Prose ------------------------------------------------------------- */
+
+.story__body {
+  min-width: 0;
+  padding-top: clamp(0rem, 1.5vw, 1.5rem);
+}
+
+.story__h2 {
+  margin-top: 0.85rem;
+  max-width: 16ch;
+}
+
+.story__prose {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  margin-top: 1.85rem;
+  max-width: 40rem;
+}
+
+.story__para {
+  margin: 0;
+  font-size: var(--fs-md);
+  line-height: 1.8;
+  color: var(--ink-inv-muted);
+}
+
+/* The opening paragraph gets a raised cap so the section reads as an essay
+   rather than three equal blocks of body copy. */
+.story__para:first-child::first-letter {
+  float: left;
+  margin: 0.13em 0.11em 0 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--vf-display);
+  font-size: 3.35em;
+  font-weight: var(--fw-semi);
+  line-height: 0.78;
+  color: var(--amber-500);
+}
+
+@media (max-width: 980px) {
+  .story__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .story__aside {
+    order: 2;
+  }
+
+  .story__sticky {
+    position: static;
+  }
+
+  .story__media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .story__quote {
+    margin-left: clamp(0.75rem, 4vw, 3rem);
+    margin-right: clamp(0.75rem, 4vw, 3rem);
+  }
+
+  .story__body {
+    order: 1;
+  }
+}
